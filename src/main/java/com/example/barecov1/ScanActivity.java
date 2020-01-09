@@ -19,7 +19,8 @@ import androidx.core.content.ContextCompat;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-import static android.Manifest.permission_group.CAMERA;
+
+import static android.Manifest.permission.CAMERA;
 
 
 //entire activity based off https://www.youtube.com/watch?v=otkz5Cwdw38
@@ -54,7 +55,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
     private boolean checkPermission()
     {
-        return (ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
+        return (ContextCompat.checkSelfPermission(ScanActivity.this, CAMERA) == PackageManager.PERMISSION_GRANTED);
     }
 
     private void requestPermission()
@@ -134,6 +135,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -152,5 +154,14 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         builder.setMessage(result.getText());
         AlertDialog alert1 = builder.create();
         alert1.show();
+
+
+
+        Intent intent = new Intent(this, ProductInformationActivity.class);
+        intent.putExtra("barcode", myResult);
+        startActivity(intent);
+
+
+
     }
 }

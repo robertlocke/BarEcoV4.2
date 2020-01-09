@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //https://stackoverflow.com/questions/2091465/how-do-i-pass-data-between-activities-in-android-application
                 Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("user_email", user.getEmail());
+                intent.putExtra("user_id", user.getId());
                 startActivity(intent);
 
             } else {

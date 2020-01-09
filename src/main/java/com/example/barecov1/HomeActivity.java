@@ -29,8 +29,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //https://stackoverflow.com/questions/2091465/how-do-i-pass-data-between-activities-in-android-application
-        String email = getIntent().getStringExtra("user_email");
-        user.setEmail(email);
+        String id = getIntent().getStringExtra("user_id");
+        user.setId(Integer.parseInt(id));
 
         //connecting variables to elements by id
         scan = (Button) findViewById(R.id.btnScan);
@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
     //Opens the account activity
     public void openAccountSettings(){
         Intent intent = new Intent(this, AccountActivity.class);
-        intent.putExtra("user_email", user.getEmail());
+        intent.putExtra("user_id", Integer.toString(user.getId()));
         startActivity(intent);
     }
 

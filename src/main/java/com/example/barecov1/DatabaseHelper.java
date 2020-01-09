@@ -57,6 +57,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public User findUserById(String id){
+        //https://stackoverflow.com/questions/8557716/how-to-return-multiple-values
+       User user =  new User();
+
+        db = this.getReadableDatabase();
+        String query = "select id, email, password from "+ TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(query, null);
+        String dbId;
+        String dbEmail, dbPassword;
+        if(cursor.moveToFirst()){
+            do{
+                dbId = cursor.getString(0);
+                dbEmail = cursor.getString(1);
+                dbPassword = cursor.getString(2);
+
+                if(dbId.equals(id)){
+
+                    user.setId(Integer.parseInt(id));
+                    user.setEmail(dbEmail);
+                    user.setPassword(dbPassword);
+                    break;
+                }
+
+            }while(cursor.moveToNext());
+        }
+        return user;
+    }
+
     public String[] searchPassword(String email){
         //https://stackoverflow.com/questions/8557716/how-to-return-multiple-values
         String[] arr = new String[3];
